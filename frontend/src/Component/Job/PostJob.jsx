@@ -40,7 +40,7 @@ function PostJob() {
    
      
  
-    await axios.post("http://localhost:5000/api/v1/job/postJob",
+    await axios.post("https://mernstack-2-wjnf.onrender.com/api/v1/job/postJob",
         fixedSalary.length >= 4
           ? {
               title,

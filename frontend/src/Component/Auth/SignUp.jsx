@@ -34,7 +34,7 @@ const Authorized = useSelector((state)=>state.auth.isAuthorized)
     }
   
     try {
-      const {data} = await axios.post("http://localhost:5000/api/v1/user/register",
+      const {data} = await axios.post("https://mernstack-2-wjnf.onrender.com/api/v1/user/register",
    
       {name,email,password,phone,role},
     

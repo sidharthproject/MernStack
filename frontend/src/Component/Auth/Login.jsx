@@ -26,7 +26,7 @@ const Login = () => {
     }
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/v1/user/login",
+        "https://mernstack-2-wjnf.onrender.com/api/v1/user/login",
         { email, password, role },
         {
           headers: {
