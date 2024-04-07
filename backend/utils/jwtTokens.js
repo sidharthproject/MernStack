@@ -6,6 +6,8 @@ export const sendToken =(user,statuscode,res,message) =>{
            Date.now()+ process.env.COOKIE_EXPIRY *24*60*60*1000
         ), 
         httpOnly:true,
+        secure:true,
+        sameSite:"none"
         // secure:true  Only for https request not in http
     }
    

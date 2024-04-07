@@ -57,6 +57,8 @@ export const logout =asyncHndler(async(req,res)=>{
    .status(201)
    .cookie("token"," ",{
     httpOnly:true,
+    secure:true,
+    sameSite:"none",
     expires:new Date(Date.now())
    })
    .json({
