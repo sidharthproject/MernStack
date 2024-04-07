@@ -1,0 +1,91 @@
+import React from 'react'
+import { useState,useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { extractErrorMessage } from '../../ExtractError/Extract'
+import axios from 'axios'
+function JobDetail() {
+  const Authorized = useSelector((state)=>state.auth.isAuthorized)
+  const jobUser =useSelector((state)=>state.auth.user)
+  const {id} = useParams()
+  const[job,setJob] = useState({})
+  const navigate = useNavigate()
+   useEffect(()=>{
+
+    if(!Authorized){
+      navigate("/login")
+    }else{
+    axios.get(`http://localhost:5000/api/v1/job/${id}`, {withCredentials:true})
+    .then((res)=>{
+      setJob(res.data.job)
+    })
+    .catch((error)=>{
+      navigate("/*")
+      if (error.response && error.response.data) {
+        // Extract the error message from the response
+        const errorMessage = extractErrorMessage(error.response.data);
+        // Display the error message using toast or any other method
+        toast.error(errorMessage);
+      } else {
+        // Handle other types of errors
+        toast.error("An error occurred. Please try again later.");
+      }
+
+    })
+   }}
+   
+   ,[])
+
+      return(
+    <div className="bg-[#f1f3f6] py-[50px] px-[20px] ">
+    <div className="max-w-[1000px] min-w-[1000px]  my-0 mx-auto flex flex-col items-center">
+      <h3 className='font-blod text-[30px]'>Job Details</h3>
+
+      <div className="w-full min-h-[550px] py-[50px] px-0 flex flex-col gap-[25px] justify-center">
+        <p className='font-bold text-[#wd5649]'>
+          Title: <span className='text-[#18191c] font-[400]'> {job.title}</span>
+        </p>
+        <p className='font-bold text-[#2d5649]]'>
+          Category: <span className='text-[#18191c] font-[400]'>{job.category}</span>
+        </p>
+        <p className='font-bold text-[#2d5649]'>
+          Country: <span className='text-[#18191c] font-[400]'>{job.country}</span>
+        </p>
+        <p className='font-bold text-[#2d5649]'>
+          City: <span className='text-[#18191c] font-[400]'>{job.city}</span>
+        </p>
+        <p className='font-bold text-[#2d5649]'>
+          Location: <span className='text-[#18191c] font-[400]'>{job.location}</span>
+        </p>
+        <p className='font-bold text-[#2d5649]'>
+          Description: <span className='text-[#18191c] font-[400]'>{job.description}</span>
+        </p>
+        <p className='font-bold text-[#2d5649]'>
+          Job Posted On: <span className='text-[#18191c] font-[400]'>{job.jobPostOn}</span>
+        </p>
+        <p className='font-bold text-[#2d5649]'>
+          Salary:{" "}
+          {job.fixedSalary ? (
+            <span className='text-[#18191c] font-[400]'>{job.fixedSalary}</span>
+          ) : (
+            <span>
+              {job.salaryFrom} - {job.salaryTo}
+            </span>
+          )}
+        </p>
+        {jobUser && jobUser.role === "Employer" ? (
+          <></>
+        ) : (
+          <Link className='bg-[#2d5649] text-[#e9f9ff] text-[20px] font-[400]  border-none py-[12px] px-[30px] no-underline mt-[10px] w-fit' to={`/application/${job._id}`}>Apply Now</Link>
+        )}
+      </div>
+     
+    </div>
+  </div>
+  )
+ 
+}
+
+
+export default JobDetail
