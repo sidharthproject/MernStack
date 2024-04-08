@@ -7,11 +7,10 @@ import PopularCategory from './PopularCategory'
 import PopularCompany from './PopularCompany'
 function Home() {
   const Authorized = useSelector(state=>state.auth.isAuthorized)
-useEffect(()=>{
+
   if(!Authorized){
     <Navigate to={'/login'}/>
   }
-},[Authorized])
   return (
     <section className='HomePage page'>
        <HeroSection/>

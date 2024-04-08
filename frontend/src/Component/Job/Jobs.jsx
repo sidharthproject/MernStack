@@ -14,7 +14,7 @@ function Jobs() {
       navigate("/login");
     } else {
       try {
-        axios.get("https://mernstack-2-wjnf.onrender.com/api/v1/job/getAll", { withCredentials: true })
+        axios.get("https://mernstack-h0mv.onrender.com/api/v1/job/getAll", { withCredentials: true })
           .then((res) => {
             setJobs(res.data);
           });

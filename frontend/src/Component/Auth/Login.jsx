@@ -26,7 +26,7 @@ const Login = () => {
     }
     try {
       const { data } = await axios.post(
-        "https://mernstack-2-wjnf.onrender.com/api/v1/user/login",
+        "https://mernstack-h0mv.onrender.com/api/v1/user/login",
         { email, password, role },
         {
           headers: {
@@ -72,7 +72,7 @@ useEffect(()=>{
             <div className="flex flex-col gap-[10px]">
               <label>Login As</label>
               <div className="flex items-center rounded-lg">
-                <select className="bg-[#87878778] p-[8px] border-none w-[100%] focus:outline-none" value={role} onChange={(e) => setRole(e.target.value)}>
+                <select className="bg-[#87878778] p-[8px] border-none w-[80%] focus:outline-none" value={role} onChange={(e) => setRole(e.target.value)}>
                   <option value="">Select Role</option>
                   <option value="Employer">Employer</option>
                   <option value="JobSeeker">Job Seeker</option>
@@ -84,7 +84,7 @@ useEffect(()=>{
               <label>Email Address</label>
               <div className="flex items-center rounded-lg">
                 <input
-                className="bg-[#87878778] p-[8px] border-none w-[100%] focus:outline-none"
+                className="bg-[#87878778] p-[8px] border-none w-[80%] focus:outline-none"
                   type="email"
                   placeholder="Enter Your Email"
                   value={email}
@@ -97,7 +97,7 @@ useEffect(()=>{
               <label>Password</label>
               <div className="flex items-center rounded-lg">
                 <input
-                className="bg-[#87878778] p-[8px] border-none w-[100%] focus:outline-none"
+                className="bg-[#87878778] p-[8px] border-none w-[80%] focus:outline-none"
                   type="password"
                   placeholder="Enter Your Password"
                   value={password}
