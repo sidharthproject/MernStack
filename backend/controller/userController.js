@@ -1,4 +1,4 @@
-import ErrorHandler,{errorMiddleware} from "../middlewares/Error.js";
+import ErrorHandler from "../middlewares/Error.js";
 import { asyncHndler } from "../middlewares/asyncHandler.js";
 import { User } from "../models/user.model.js";
 import { sendToken } from "../utils/jwtTokens.js";
