@@ -7,7 +7,7 @@ export const sendToken =(user,statuscode,res,message) =>{
         ), 
         httpOnly:true,
         secure:true,
-      
+       sameSite:"none"
         // secure:true  Only for https request not in http
     }
    
