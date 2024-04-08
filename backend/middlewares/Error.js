@@ -15,7 +15,14 @@ class ErrorHandler extends Error{
             Error.captureStackTrace(this,this.constructor)
         }
     }
-}
+}  
+export const Handler = (err, req, res, next) => {
+    console.error(err.stack); // Log the error stack trace
+    res.status(err.status || 500).json({
+        success: false,
+        error: err.message || "Internal Server Error"
+    });
+};
 
     
    
