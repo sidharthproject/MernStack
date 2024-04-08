@@ -5,7 +5,7 @@ import { sendToken } from "../utils/jwtTokens.js";
 
 
 
-export const register = asyncHndler(async(req,res)=>{
+export const register = asyncHndler(async(req,res,next)=>{
 
     const {name,email,phone,role,password} = req.body;
     if(!name||!email||!phone||!role||!password) 
@@ -15,7 +15,7 @@ export const register = asyncHndler(async(req,res)=>{
  }
 const isEmail = await User.findOne({email})
 if(isEmail){
-    throw new ErrorHandler("Email already exist",400)
+   return next(new ErrorHandler("Email already exist",400))
 }
 const user = await User.create({
     name,
