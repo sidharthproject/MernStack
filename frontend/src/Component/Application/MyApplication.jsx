@@ -41,7 +41,12 @@ const jobUser = useSelector(state=>state.auth.user)
         toast.error( error.response.data)
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      if (error.response && error.response.data && error.response.data.message) {
+        toast.error(error.response.data.message);
+      } else {
+        // If there's no response object or data property, handle the error differently
+        toast.error("An unexpected error occurred.");
+      }
     }
       
   }, []);
@@ -66,12 +71,22 @@ const jobUser = useSelector(state=>state.auth.user)
           );
         })
         .catch((error) => {
-          // Handle Axios errors
+          if (error.response && error.response.data && error.response.data.message) {
+            toast.error(error.response.data.message);
+          } else {
+            // If there's no response object or data property, handle the error differently
+            toast.error("An unexpected error occurred.");
+          }
          
         });
     } catch (error) {
       // Handle unexpected errors
-      toast.error(error.response.data.message);
+      if (error.response && error.response.data && error.response.data.message) {
+        toast.error(error.response.data.message);
+      } else {
+        // If there's no response object or data property, handle the error differently
+        toast.error("An unexpected error occurred.");
+      }
     }
   };
 

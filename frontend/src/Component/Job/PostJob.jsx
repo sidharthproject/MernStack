@@ -72,8 +72,12 @@ function PostJob() {
         toast.success(res.data.message);
       })
       .catch((error) => {
-        toast.error(error.response.data.message);
-      
+        if (error.response && error.response.data && error.response.data.message) {
+          toast.error(error.response.data.message);
+        } else {
+          // If there's no response object or data property, handle the error differently
+          toast.error("An unexpected error occurred.");
+        }
       });
     
   };
