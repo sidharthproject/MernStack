@@ -18,7 +18,13 @@ class ErrorHandler extends Error{
 }  
 export const Handler = (err, req, res, next) => {
     console.error(err.stack); // Log the error stack trace
-    if (err.response && err.response.data && err.response.data.message) {
+    if (err.code === 'ERR_NETWORK') {
+        // Handle network error
+        res.status(500).json({
+            success: false,
+            error: 'Network Error: Unable to connect to the server. Please try again later.'
+        });
+    } else if (err.response && err.response.data && err.response.data.message) {
         // If the error has a response and the response has a message, send that message
         res.status(err.status || 500).json({
             success: false,
@@ -32,8 +38,6 @@ export const Handler = (err, req, res, next) => {
         });
     }
 };
-
-    
    
 
 
