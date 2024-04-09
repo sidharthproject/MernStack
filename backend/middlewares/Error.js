@@ -18,10 +18,19 @@ class ErrorHandler extends Error{
 }  
 export const Handler = (err, req, res, next) => {
     console.error(err.stack); // Log the error stack trace
-    res.status(err.status || 500).json({
-        success: false,
-        error: err.message || "Internal Server Error"
-    });
+    if (err.response && err.response.data && err.response.data.message) {
+        // If the error has a response and the response has a message, send that message
+        res.status(err.status || 500).json({
+            success: false,
+            error: err.response.data.message
+        });
+    } else {
+        // Otherwise, send a generic error message
+        res.status(err.status || 500).json({
+            success: false,
+            error: err.message || "Internal Server Error"
+        });
+    }
 };
 
     
