@@ -56,6 +56,7 @@ const Authorized = useSelector((state)=>state.auth.isAuthorized)
      
     } catch (error) {
       dispatch(setIsAuthorized(false))
+      console.log(error);
       toast.error(error.response.data.message);
     }
 

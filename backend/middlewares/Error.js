@@ -37,7 +37,7 @@ export const Handler = (err, req, res, next) => {
             error: err.message || "Internal Server Error"
         });
     }
-};
+};;
    
 
 
