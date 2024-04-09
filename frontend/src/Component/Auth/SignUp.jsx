@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { setIsAuthorized } from '../../store/authSlice';
 import toast from "react-hot-toast";
-import { extractErrorMessage } from '../../ExtractError/Extract';
+
 
 
 function SignUp() {
@@ -56,15 +56,7 @@ const Authorized = useSelector((state)=>state.auth.isAuthorized)
      
     } catch (error) {
       dispatch(setIsAuthorized(false))
-      if (error.response && error.response.data) {
-        // Extract the error message from the response
-        const errorMessage = extractErrorMessage(error.response.data);
-        // Display the error message using toast or any other method
-        toast.error(errorMessage);
-      } else {
-        // Handle other types of errors
-        toast.error("An error occurred. Please try again later.");
-      }
+      toast.error(error.response.data.message);
     }
 
   }

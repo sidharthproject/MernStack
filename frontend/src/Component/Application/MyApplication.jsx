@@ -4,7 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import ResumeModel from "./ResumeModel";
-import { extractErrorMessage } from "../../ExtractError/Extract";
+
 const MyApplication = () => {
 const jobUser = useSelector(state=>state.auth.user)
   const [application, setApplications] = useState([]);
@@ -41,15 +41,7 @@ const jobUser = useSelector(state=>state.auth.user)
         toast.error( error.response.data)
       }
     } catch (error) {
-      if (error.response && error.response.data) {
-        // Extract the error message from the response
-        const errorMessage = extractErrorMessage(error.response.data);
-        // Display the error message using toast or any other method
-        toast.error(errorMessage);
-      } else {
-        // Handle other types of errors
-        toast.error("An error occurred. Please try again later.");
-      }
+      toast.error(error.response.data.message);
     }
       
   }, []);
@@ -79,7 +71,7 @@ const jobUser = useSelector(state=>state.auth.user)
         });
     } catch (error) {
       // Handle unexpected errors
-      toast.error("An unexpected error occurred. Please try again later.");
+      toast.error(error.response.data.message);
     }
   };
 

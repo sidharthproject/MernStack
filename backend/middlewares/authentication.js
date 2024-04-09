@@ -11,7 +11,9 @@ export const isAuthorized = asyncHndler(async(req,res,next)=>{
    
 
     if(!token){
-        throw  new ErrorHandler("Unauthorized request",400)
+        return next(
+            new ErrorHandler("UnAuthorized request .", 400)
+          );
     }
 
     const decodeToken =jwt.verify(token,process.env.REFRESH_TOKEN_SECRET)

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import { extractErrorMessage } from '../../ExtractError/Extract'
+
 function Jobs() {
   const Authorized = useSelector(state=>state.auth.isAuthorized)
   const[job,setJobs] = useState([])
@@ -19,15 +19,7 @@ function Jobs() {
             setJobs(res.data);
           });
       } catch (error) {
-        if (error.response && error.response.data) {
-          // Extract the error message from the response
-          const errorMessage = extractErrorMessage(error.response.data);
-          // Display the error message using toast or any other method
-          toast.error(errorMessage);
-        } else {
-          // Handle other types of errors
-          toast.error("An error occurred. Please try again later.");
-        }
+        toast.error(error.response.data.message);
       }
     }
   }, [Authorized, navigate]);

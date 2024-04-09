@@ -18,19 +18,27 @@ export const getAllJobs = asyncHndler(async(req,res,next)=>{
     export const postJob = asyncHndler(async(req,res,next)=>{
         const {role} = req.user
         if(role === "JobSeeker"){
-            throw new ErrorHandler("Job Seeker canot allowed to access thi resoureces !")
+            return next(
+                new ErrorHandler("Job Seeker not allowed to access this resource.", 400)
+              );
         }
         const {title,description,category,country,city,location,fixedSalary,salaryFrom,salaryTo} = req.body;
         
         if(!title || !description || !category || !country || !city || !location){
           
-            throw new ErrorHandler("Please Provide full job detail")
+            return next(
+                new ErrorHandler("Please provide full job detail ", 400)
+              );
         }
         if((!salaryFrom && !salaryTo) && !fixedSalary){
-            throw new ErrorHandler("Please either provide fixedsalary or ranged salary")
+            return next(
+                new ErrorHandler("Please either provide fixed salary or ranged salary", 400)
+              );
         }
         if(salaryFrom && salaryTo && fixedSalary){
-            throw new ErrorHandler("Cannot enter fixed salary and ranged salary together !")
+            return next(
+                new ErrorHandler("Canot enter fixed salary or ranged salary together", 400)
+              );
     }
 
     const postedBy =  req.user._id;
@@ -55,11 +63,13 @@ export const getAllJobs = asyncHndler(async(req,res,next)=>{
   })
     })
 
-export const getmyJobs = asyncHndler(async(req,res)=>{
+export const getmyJobs = asyncHndler(async(req,res,next)=>{
 
     const {role} = req.user
         if(role === "JobSeeker"){
-            throw new ErrorHandler("Job Seeker canot allowed to access this resoureces !")
+            return next(
+                new ErrorHandler("Job Seeker not allowed to access this resource.", 400)
+              );
     }
     const myjobs = await Job.find({postedBy:req.user._id})
 
@@ -71,16 +81,20 @@ export const getmyJobs = asyncHndler(async(req,res)=>{
     })
 })
 
-export const updatejob = asyncHndler(async(req,res)=>{
+export const updatejob = asyncHndler(async(req,res,next)=>{
     const {role} = req.user
     if(role === "JobSeeker"){
-        throw new ErrorHandler("Job Seeker canot allowed to access thi resoureces !")
+        return next(
+            new ErrorHandler("Job Seeker not allowed to access this resource.", 400)
+          );
      }
      const {id} = req.params;
     //  console.log("req params"+id);
      let job  = await Job.findById(id)
      if(!job){
-        throw new ErrorHandler("Oops Job not Found!",404)
+        return next(
+            new ErrorHandler("Oops Jjob Not Found ", 400)
+          );
      }
      const updateJob = await Job.findByIdAndUpdate(id,req.body,{
         new:true,
@@ -96,16 +110,20 @@ export const updatejob = asyncHndler(async(req,res)=>{
 
     })
 
-export const deletejob = asyncHndler(async(req,res)=>{
+export const deletejob = asyncHndler(async(req,res,next)=>{
     const {role} = req.user
     if(role === "JobSeeker"){
-        throw new ErrorHandler("Job Seeker canot allowed to access this resoureces !")
+        return next(
+            new ErrorHandler("Job Seeker not allowed to access this resource.", 400)
+          );
      }
 
      const {id} = req.params;
      let job  = await Job.findById(id)
      if(!job){
-        throw new ErrorHandler("Oops Job not Found!",404)
+        return next(
+            new ErrorHandler("Oops job  not found", 400)
+          );
      }
    await job.deleteOne()
 
@@ -116,12 +134,14 @@ export const deletejob = asyncHndler(async(req,res)=>{
      })
 })
 
-export const getSinglejob = asyncHndler(async(req,res)=>{
+export const getSinglejob = asyncHndler(async(req,res,next)=>{
     const  {id} = req.params;
     try {
         const job = await Job.findById(id);
         if(!job){
-            throw new ErrorHandler("Job nbot found", 404)
+            return next(
+                new ErrorHandler("Job not found ", 400)
+              );
         }
         res.status(200)
         .json({
@@ -129,6 +149,8 @@ export const getSinglejob = asyncHndler(async(req,res)=>{
             job
         })
     } catch (error) {
-         throw new ErrorHandler("Invalid Id/Cast error" ,400)
+        return next(
+            new ErrorHandler("Invalid Id/Cast error.", 400)
+          );
     }
 })

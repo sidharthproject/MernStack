@@ -5,7 +5,7 @@ import { FaCheck } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
 import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { extractErrorMessage } from '../../ExtractError/Extract';
+
 function MyJob() {
   const [myJobs, setMyJobs] = useState([]);
 
@@ -29,15 +29,7 @@ function MyJob() {
         setMyJobs(data.myjobs)
         console.log(myJobs);
       } catch (error) {
-        if (error.response && error.response.data) {
-          // Extract the error message from the response
-          const errorMessage = extractErrorMessage(error.response.data);
-          // Display the error message using toast or any other method
-          toast.error(errorMessage);
-        } else {
-          // Handle other types of errors
-          toast.error("An error occurred. Please try again later.");
-        }
+        toast.error(error.response.data.message);
         setMyJobs([]);
       }
     }
@@ -73,15 +65,7 @@ function MyJob() {
         setEditingMode(null);
       })
       .catch((error) => {
-        if (error.response && error.response.data) {
-          // Extract the error message from the response
-          const errorMessage = extractErrorMessage(error.response.data);
-          // Display the error message using toast or any other method
-          toast.error(errorMessage);
-        } else {
-          // Handle other types of errors
-          toast.error("An error occurred. Please try again later.");
-        }
+        toast.error(error.response.data.message);
       
       });
   };
@@ -97,15 +81,7 @@ function MyJob() {
         setMyJobs((prevJobs) => prevJobs.filter((job) => job._id !== jobId));
       })
       .catch((error) => {
-        if (error.response && error.response.data) {
-          // Extract the error message from the response
-          const errorMessage = extractErrorMessage(error.response.data);
-          // Display the error message using toast or any other method
-          toast.error(errorMessage);
-        } else {
-          // Handle other types of errors
-          toast.error("An error occurred. Please try again later.");
-        }
+        toast.error(error.response.data.message);
       
       });
   };

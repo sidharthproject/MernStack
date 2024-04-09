@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { setIsAuthorized } from "../../store/authSlice";
 import { useDispatch } from "react-redux";
-import { extractErrorMessage } from "../../ExtractError/Extract";
+
 const Login = () => {
   const Authorized = useSelector((state)=>state.auth.isAuthorized)
   const [email, setEmail] = useState("");
@@ -64,40 +64,38 @@ useEffect(()=>{
           <form>
             <div className="flex flex-col gap-[10px]">
               <label>Login As</label>
-              <div className="flex items-center rounded-lg">
-                <select className="bg-[#87878778] p-[8px] border-none w-[80%] focus:outline-none" value={role} onChange={(e) => setRole(e.target.value)}>
-                  <option value="">Select Role</option>
-                  <option value="Employer">Employer</option>
-                  <option value="JobSeeker">Job Seeker</option>
-                </select>
-                <FaRegUser className="w-[10%]  text-[1.5rem] bg-[#2d5649] h-auto p-[8px] text-[#fff]" />
-              </div>
+              <div  className='flex items-center rounded-md'>
+        <select className='bg-[#87878778] p-[8px] b-none w-[100%]  focus:outline-none' value={role} onChange={(e)=>setRole(e.target.value)}>
+          <option value="">Select Role</option>
+          <option value="Employer">Employer</option>
+          <option value="JobSeeker">JobSeeker</option>
+        </select>
+        <FaRegUser className="w-[10%] text-[1.5rem] bg-[#2d5649] h-[100%] p-8px text-[#fff]"/>
+       </div>
             </div>
             <div className="flex flex-col gap-[10px]">
               <label>Email Address</label>
-              <div className="flex items-center rounded-lg">
-                <input
-                className="bg-[#87878778] p-[8px] border-none w-[80%] focus:outline-none"
-                  type="email"
-                  placeholder="Enter Your Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <MdOutlineMailOutline className="w-[10%] text-[1.5rem] bg-[#2d5649] h-[100%] p-[8px] text-[#fff]" />
-              </div>
+              <div className='flex items-center rounded-md'>
+        <input className='bg-[#87878778] p-[8px] b-none w-[100%]  focus:outline-none'
+        type="email" 
+        value={email} 
+        onChange={(e)=>setEmail(e.target.value)}
+        placeholder='Enter Your Email'
+        />
+        <MdOutlineMail className="w-[10%] text-[1.5rem] bg-[#2d5649] h-[100%] p-8px text-[#fff]"/>
+       </div>
             </div>
             <div className="flex flex-col gap-[10px]">
               <label>Password</label>
-              <div className="flex items-center rounded-lg">
-                <input
-                className="bg-[#87878778] p-[8px] border-none w-[80%] focus:outline-none"
-                  type="password"
-                  placeholder="Enter Your Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <RiLock2Fill className="w-[10%] text-[1.5rem] bg-[#2d5649] h-[100%] p-[8px] text-[#fff]" />
-              </div>
+              <div className='flex items-center rounded-md'>
+        <input className='bg-[#87878778] p-[8px] b-none w-[100%]  focus:outline-none'
+        type="password" 
+        value={password} 
+        onChange={(e)=>setPassword(e.target.value)}
+        placeholder='Enter Your Password '
+        />
+        <RiLock2Fill className="w-[10%] text-[1.5rem] bg-[#2d5649] h-[100%] p-8px text-[#fff]"/>
+       </div>
             </div>
             <button className="p-[12px] text-center border-none mt-[25px] font-[700] text-[#fff] bg-[#2d5649] text-[1.2rem] rounded-lg" type="submit" onClick={handleLogin}>
               Login

@@ -11,11 +11,15 @@ export const register = asyncHndler(async(req,res,next)=>{
     if(!name||!email||!phone||!role||!password) 
     // [name,email,phone,role,password].some((field) => field.trim() === " ")
  {
-     throw new ErrorHandler("All fields are required",400)
+      return next(
+      new ErrorHandler("All fields are required ", 400)
+    );
  }
 const isEmail = await User.findOne({email})
 if(isEmail){
-   return next(new ErrorHandler("Email already exist",400))
+    return next(
+        new ErrorHandler("Email already exist", 400)
+      );
 }
 const user = await User.create({
     name,
@@ -28,31 +32,39 @@ const user = await User.create({
    sendToken(user,200,res,"User Registered Successfully")
 });
 
-export const login = asyncHndler(async(req,res)=>{
+export const login = asyncHndler(async(req,res,next)=>{
 
     const {email,password,role} = req.body;
     if(!email || !password|| !role){
-        throw new ErrorHandler("All fields are required for login",400)
+        return next(
+            new ErrorHandler("All fields are required ", 400)
+          );
     }
     const user = await User.findOne({
         $or: [{password}, {email}]
     })
     if(!user){
-        throw new ErrorHandler( "User with this Email does not exist",400)
+        return next(
+            new ErrorHandler("User with this email exist", 400)
+          );
     }
 
     const isPasswordValid = await user.ispasswordCorrect(password)
     if(!isPasswordValid){
-        throw new ErrorHandler("Invalid Email or Password",400)
+        return next(
+            new ErrorHandler("Invalid email or password", 400)
+          );
     }
     if(user.role !== role){
-        throw new ErrorHandler("User with this role doesn't exist")
+        return next(
+            new ErrorHandler("user with this role does not exist", 400)
+          );
     }
     sendToken(user,201,res,"User logged In Successfully")
 })
 
 
-export const logout =asyncHndler(async(req,res)=>{
+export const logout =asyncHndler(async(req,res,next)=>{
    res
    .status(201)
    .cookie("token"," ",{

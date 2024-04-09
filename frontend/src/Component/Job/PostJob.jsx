@@ -3,7 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from  'react-redux'
-import { extractErrorMessage } from '../../ExtractError/Extract';
+
 function PostJob() {
   const Authorized = useSelector((state)=>state.auth.isAuthorized)
  
@@ -72,15 +72,7 @@ function PostJob() {
         toast.success(res.data.message);
       })
       .catch((error) => {
-        if (error.response && error.response.data) {
-          // Extract the error message from the response
-          const errorMessage = extractErrorMessage(error.response.data);
-          // Display the error message using toast or any other method
-          toast.error(errorMessage);
-        } else {
-          // Handle other types of errors
-          toast.error("An error occurred. Please try again later.");
-        }
+        toast.error(error.response.data.message);
       
       });
     

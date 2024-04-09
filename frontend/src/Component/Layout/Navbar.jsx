@@ -7,7 +7,7 @@ import toast from 'react-hot-toast'
 import {GiHamburgerMenu} from 'react-icons/gi'
 import { setIsAuthorized } from '../../store/authSlice'
 import { Link } from 'react-router-dom'
-import { extractErrorMessage } from '../../ExtractError/Extract'
+
 function Navbar() {
     const [show, setShow] = useState(false);
   const navigate = useNavigate();
@@ -23,15 +23,7 @@ function Navbar() {
       navigate("/login")
     } catch (error) {
       dispatch(setIsAuthorized(true))
-      if (error.response && error.response.data) {
-        // Extract the error message from the response
-        const errorMessage = extractErrorMessage(error.response.data);
-        // Display the error message using toast or any other method
-        toast.error(errorMessage);
-      } else {
-        // Handle other types of errors
-        toast.error("An error occurred. Please try again later.");
-      }
+      toast.error(error.response.data.message);
     }
 }
   return (

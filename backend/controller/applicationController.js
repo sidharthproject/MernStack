@@ -3,10 +3,12 @@ import ErrorHandler from "../middlewares/Error.js";
 import { Application } from "../models/application.model.js";
 import cloudinary from "cloudinary"
 import { Job } from "../models/job.model.js";
-export const employeeGetApplication =  asyncHndler(async(req,res)=>{
+export const employeeGetApplication =  asyncHndler(async(req,res,next)=>{
     const {role} = req.user
     if(role === "JobSeeker"){
-        throw new ErrorHandler("Job Seeker canot allowed to access thi resoureces !",400)
+      return next(
+         new ErrorHandler("Job Seeker not allowed to access this resource.", 400)
+       );
      }
 
      const {_id} = req.user;
@@ -18,10 +20,12 @@ export const employeeGetApplication =  asyncHndler(async(req,res)=>{
      })
 })
 
-export const jobSeekerGetApplication =  asyncHndler(async(req,res)=>{
+export const jobSeekerGetApplication =  asyncHndler(async(req,res,next)=>{
     const {role} = req.user
     if(role === "Employer"){
-        throw new ErrorHandler("Employer canot allowed to access this resoureces !",400)
+      return next(
+         new ErrorHandler("Employer not allowed to access this resource.", 400)
+       );
      }
 
      const {_id} = req.user;
@@ -33,16 +37,20 @@ export const jobSeekerGetApplication =  asyncHndler(async(req,res)=>{
      })
 })
 
-export const JobSeekerDeleteApplication = asyncHndler(async(req,res)=>{
+export const JobSeekerDeleteApplication = asyncHndler(async(req,res,next)=>{
     const {role} = req.user
     if(role === "Employer"){
-        throw new ErrorHandler("Employercanot allowed to access thi resoureces !",400)
+      return next(
+         new ErrorHandler("Employer not allowed to access this resource.", 400)
+       );
      }
 
      const {id} = req.params
      const application = await Application.findById(id)
      if(!application){
-        throw  new ErrorHandler("Oops application not found!", 404)
+      return next(
+         new ErrorHandler("Oops application not found", 400)
+       );
      }
      await application.deleteOne()
 
@@ -53,7 +61,7 @@ export const JobSeekerDeleteApplication = asyncHndler(async(req,res)=>{
      })
 })
 
-export const postApplication = asyncHndler(async(req,res)=>{
+export const postApplication = asyncHndler(async(req,res,next)=>{
 cloudinary.v2.config(
     {
         cloud_name:process.env.CLOUDINARY_CLOUD_NAME, 
@@ -64,10 +72,14 @@ cloudinary.v2.config(
 
     const {role} = req.user
     if(role === "Employer"){
-        throw new ErrorHandler("Employer canot allowed to access thi resoureces !",400)
+      return next(
+         new ErrorHandler("Employer not allowed to access this resource.", 400)
+       );
      }
      if(!req.files || Object.keys(req.files).length === 0)  {
-        throw new ErrorHandler("Resume file is Required")
+      return next(
+         new ErrorHandler("Resumem is required", 400)
+       );
      } 
 
      const {resume} = req.files;
@@ -75,7 +87,9 @@ cloudinary.v2.config(
 
      // Check if the uploaded file is not in the allowed formats
      if (!allowedFormats.includes(resume.mimetype)) {
-         throw new ErrorHandler("Please upload your resume in PNG, JPG, or WebP format", 400);
+      return next(
+         new ErrorHandler("Please  upload image in jpg ,png format", 400)
+       );
      }
 
     // if(allowedFormats.some((field)=> field = resume.mimetype)){
@@ -89,7 +103,9 @@ cloudinary.v2.config(
      if(!cloudinaryResponse || cloudinaryResponse.error ){
     console.error("Cloudinary Error: ",cloudinaryResponse.error || "Unknown cloudinary error")
 
-    throw new ErrorHandler("Failed to upload resume", 500)
+    return next(
+      new ErrorHandler("Failed upload resume", 400)
+    );
      }
 
      const{name,email,coverLetter,phone,address,jobId} = req.body
@@ -100,12 +116,16 @@ cloudinary.v2.config(
      }
 
      if(!jobId){
-        throw new ErrorHandler("Job not found!", 400)
+      return next(
+         new ErrorHandler("Job not found", 400)
+       );
      }
 
      const jobDetails = await Job.findById(jobId)
      if(!jobDetails){
-        throw new ErrorHandler("Job not found!", 400)
+      return next(
+         new ErrorHandler("Job not found", 400)
+       );
      }
 
      const employerId = {
@@ -114,7 +134,9 @@ cloudinary.v2.config(
      }
 
      if(!name|| !email || !coverLetter || !phone || !address|| !applicantId || !employerId || !resume){
-            throw new ErrorHandler("Please fill the all fields ! ",400)
+      return next(
+         new ErrorHandler("Please fill all the field ", 400)
+       );
      }
 
      const application = await Application.create({

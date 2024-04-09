@@ -3,7 +3,7 @@ import { useState,useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { extractErrorMessage } from '../../ExtractError/Extract'
+
 import axios from 'axios'
 function JobDetail() {
   const Authorized = useSelector((state)=>state.auth.isAuthorized)
@@ -22,15 +22,7 @@ function JobDetail() {
     })
     .catch((error)=>{
       navigate("/*")
-      if (error.response && error.response.data) {
-        // Extract the error message from the response
-        const errorMessage = extractErrorMessage(error.response.data);
-        // Display the error message using toast or any other method
-        toast.error(errorMessage);
-      } else {
-        // Handle other types of errors
-        toast.error("An error occurred. Please try again later.");
-      }
+      toast.error(error.response.data.message);
 
     })
    }}
