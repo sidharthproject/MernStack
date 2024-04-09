@@ -42,6 +42,7 @@ const Login = () => {
       dispatch(setIsAuthorized(true));
     } catch (error) {
       dispatch(setIsAuthorized(false));
+      console.log(error)
       toast.error(error.response.data.message);
     }
   };
