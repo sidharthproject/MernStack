@@ -77,7 +77,7 @@ useEffect(()=>{
                   <option value="Employer">Employer</option>
                   <option value="JobSeeker">Job Seeker</option>
                 </select>
-                <FaRegUser className="w-[10%]  text-[1.5rem] bg-[#2d5649] h-[100%] p-[8px] text-[#fff]" />
+                <FaRegUser className="w-[10%]  text-[1.5rem] bg-[#2d5649] h-auto p-[8px] text-[#fff]" />
               </div>
             </div>
             <div className="flex flex-col gap-[10px]">
