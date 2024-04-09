@@ -42,15 +42,7 @@ const Login = () => {
       dispatch(setIsAuthorized(true));
     } catch (error) {
       dispatch(setIsAuthorized(false));
-      if (error.response && error.response.data) {
-        // Extract the error message from the response
-        const errorMessage = extractErrorMessage(error.response.data);
-        // Display the error message using toast or any other method
-        toast.error(errorMessage);
-      } else {
-        // Handle other types of errors
-        toast.error("An error occurred. Please try again later.");
-      }
+      toast.error(error.response.data.message);
     }
   };
 useEffect(()=>{
