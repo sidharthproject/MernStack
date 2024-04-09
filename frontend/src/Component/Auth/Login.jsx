@@ -1,5 +1,5 @@
 import React, {  useEffect, useState } from "react";
-import { MdOutlineMailOutline } from "react-icons/md";
+import { MdOutlineMail } from "react-icons/md";
 import { RiLock2Fill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
