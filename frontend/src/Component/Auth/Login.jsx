@@ -43,8 +43,8 @@ const Login = () => {
     } catch (error) {
       dispatch(setIsAuthorized(false));
       console.log(error)
-      if (error.response && error.response.data && error.response.data.message) {
-        toast.error(error.response.data.message);
+      if (error.response && error.response.data && error.response.data.error) {
+        toast.error(error.response.data.error);
       } else {
         // If there's no response object or data property, handle the error differently
         toast.error("An unexpected error occurred.");
@@ -60,7 +60,7 @@ useEffect(()=>{
 
   return (
     <>
-      <section className="flex min-w-full max-w-full my-0 mx-auto min-h-[100vh] md:flex-row flex-col">
+      <section className="flex w-full  my-0 mx-[50px] md:flex-row flex-col">
         <div className="flex-1 flex flex-col justify-center bg-[#fff] py-[20px] px-[20px]">
           <div className="flex gap-[15px] flex-col text-center mb-[30px]">
             <img className="w-[300px] h-[120px] my-0 mx-auto" src="/JobZeelogo.png" alt="logo" />
