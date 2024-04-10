@@ -32,7 +32,7 @@ const details = [
   },
 ];
   return (
-    <div className='flex flex-col md:h-[450px] pt-75 pb-50 px-0'>
+    <div className='flex flex-col md:h-[550px] pt-75 pb-50 px-0'>
        <div className='flex items-center flex-col md:flex-row  h-[650px] mb-[1.75rem] min-w-full max-w-full my-0 mx-auto'>
         <div className="flex-1 flex flex-col ml-[40px] justify-center">
           <h1 className=' text-[30px] font-[500]'>FIND A JOB THAT SUITS YOU</h1>

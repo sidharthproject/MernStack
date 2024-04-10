@@ -29,7 +29,7 @@ function Jobs() {
     }
   }, [Authorized, navigate]);
   return (
-    <section className="bg-[#f1f3f6] min-h-[100vh] py-[50px] px-[20px]">
+    <section className="bg-[#f1f3f6] min-h-auto py-[50px] px-[20px]">
       <div className="flex flex-col items-center min-w-full max-w-full my-0 mx-auto gap-[35px]">
         <h1 className='text-[25px] font-bold'>ALL AVAILABLE JOBS</h1>
         <div className="flex flex-wrap w-full gap-[30px] justify-center py-[30px] px-0">
