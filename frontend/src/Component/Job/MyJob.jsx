@@ -29,8 +29,8 @@ function MyJob() {
         setMyJobs(data.myjobs)
         console.log(myJobs);
       } catch (error) {
-        if (error.response && error.response.data && error.response.data.message) {
-          toast.error(error.response.data.message);
+        if (error.response && error.response.data && error.response.data.error) {
+          toast.error(error.response.data.error);
         } else {
           // If there's no response object or data property, handle the error differently
           toast.error("An unexpected error occurred.");
@@ -70,8 +70,8 @@ function MyJob() {
         setEditingMode(null);
       })
       .catch((error) => {
-        if (error.response && error.response.data && error.response.data.message) {
-          toast.error(error.response.data.message);
+        if (error.response && error.response.data && error.response.data.error) {
+          toast.error(error.response.data.error);
         } else {
           // If there's no response object or data property, handle the error differently
           toast.error("An unexpected error occurred.");
@@ -91,8 +91,8 @@ function MyJob() {
         setMyJobs((prevJobs) => prevJobs.filter((job) => job._id !== jobId));
       })
       .catch((error) => {
-        if (error.response && error.response.data && error.response.data.message) {
-          toast.error(error.response.data.message);
+        if (error.response && error.response.data && error.response.data.error) {
+          toast.error(error.response.data.error);
         } else {
           // If there's no response object or data property, handle the error differently
           toast.error("An unexpected error occurred.");

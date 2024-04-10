@@ -56,9 +56,8 @@ const Application = () => {
       toast.success(data.message);
       navigateTo("/job/getAll");
     } catch (error) {
-      console.log(error);
-      if (error.response && error.response.data && error.response.data.message) {
-        toast.error(error.response.data.message);
+      if (error.response && error.response.data && error.response.data.error) {
+        toast.error(error.response.data.error);
       } else {
         // If there's no response object or data property, handle the error differently
         toast.error("An unexpected error occurred.");
