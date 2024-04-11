@@ -7,17 +7,9 @@ import userRouter from"./routes/userRouter.js"
 import applicationRouter from"./routes/applicationRouter.js"
 import jobRouter from"./routes/jobRouter.js"
 import { dbConnection } from "./database/dbConnection.js";
-import ErrorHandler from "./middlewares/Error.js";
 import { Handler } from "./middlewares/Error.js";
 
-import fs from 'fs';
 
-const tempDir = '/temp';
-
-// Check if the directory exists, create it if it doesn't
-if (!fs.existsSync(tempDir)) {
-  fs.mkdirSync(tempDir);
-}
 const app = express()
 dotenv.config({path: "./config/.env"})
 
@@ -39,7 +31,7 @@ app.use(express.urlencoded(
 app.use('/api/v1/user',userRouter)
 app.use('/api/v1/application',applicationRouter)
 app.use('/api/v1/job',jobRouter)
-app.use(ErrorHandler)
+
 app.use(Handler)
 dbConnection()
 .then(
