@@ -167,7 +167,7 @@ export const postApplication = asyncHndler(async (req, res, next) => {
     return next(
       new ErrorHandler("Employer not allowed to access this resource.", 400)
     );
-  }else if(role === "JObSeeker"){
+  }else if(role === "JobSeeker"){
   if (!req.files || Object.keys(req.files).length === 0) {
     return next(new ErrorHandler("Resume File Required!", 400));
   }
