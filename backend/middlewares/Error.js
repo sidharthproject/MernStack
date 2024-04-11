@@ -35,4 +35,5 @@ export const Handler = (err, req, res, next) => {
         success: false,
         error: errorMessage
     });
-};
+}; 
+export default ErrorHandler;
