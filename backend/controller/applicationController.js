@@ -177,7 +177,7 @@ export const postApplication = asyncHndler(async (req, res, next) => {
   if (!allowedFormats.includes(resume.mimetype)) {
     return next(
       new ErrorHandler("Invalid file type. Please upload a PNG file.", 400)
-    );
+    ); 
   }
   const cloudinaryResponse = await cloudinary.uploader.upload(
     resume.tempFilePath
@@ -208,6 +208,10 @@ const applicantId = {
       user:jobDetails.postedBy,
       role:"Employer"
 }
+const applied = await Application.findOne({ $and: [{ applicantId }, { employerId }] })
+if (applied) {
+    return  next(new ErrorHandler("Already Applied" ,400))
+}
   if (
     !name ||
     !email ||
@@ -226,8 +230,8 @@ const applicantId = {
     coverLetter,
     phone,
     address,
-    applicantID,
-    employerID,
+    applicantId,
+    employerId,
     resume: {
       public_id: cloudinaryResponse.public_id,
       url: cloudinaryResponse.secure_url,
