@@ -18,27 +18,21 @@ class ErrorHandler extends Error{
 }  
 export const Handler = (err, req, res, next) => {
     console.error(err.stack); // Log the error stack trace
+    
+    let statusCode = err.status || 500;
+    let errorMessage = err.message || "Internal Server Error";
+    
     if (err.code === 'ERR_NETWORK') {
         // Handle network error
-        res.status(500).json({
-            success: false,
-            error: 'Network Error: Unable to connect to the server. Please try again later.'
-        });
+        statusCode = 500;
+        errorMessage = "Network Error: Unable to connect to the server. Please try again later.";
     } else if (err.response && err.response.data && err.response.data.message) {
         // If the error has a response and the response has a message, send that message
-        res.status(err.status || 500).json({
-            success: false,
-            error: err.response.data.message
-        });
-    } else {
-        // Otherwise, send a generic error message
-        res.status(err.status || 500).json({
-            success: false,
-            error: err.message || "Internal Server Error"
-        });
+        errorMessage = err.response.data.message;
     }
-};;
-   
-
-
-  export default ErrorHandler
+    
+    res.status(statusCode).json({
+        success: false,
+        error: errorMessage
+    });
+};
