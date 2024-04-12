@@ -37,7 +37,7 @@ const Application = () => {
 
     try {
       const { data } = await axios.post(
-        "https://mernstack-vbvz.onrender.com/api/v1/application/post",
+        "https://mernstack-1jqz.onrender.com/api/v1/application/post",
         formData,
         {
           withCredentials: true,

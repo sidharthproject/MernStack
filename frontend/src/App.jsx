@@ -15,7 +15,7 @@ function App() {
  useEffect(() => {
   const fetchUser = async () => {
     try {
-      const response = await axios.get("https://mernstack-vbvz.onrender.com/api/v1/user/getuser",{ withCredentials: true });
+      const response = await axios.get("https://mernstack-1jqz.onrender.com/api/v1/user/getuser",{ withCredentials: true });
       console.log(response.data);
       dispatch(setIsAuthorized(true));
       dispatch(setUser(response.data.user));

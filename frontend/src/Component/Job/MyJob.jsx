@@ -22,7 +22,7 @@ function MyJob() {
     }else{
         try {
         const { data } = await axios.get(
-          "https://mernstack-vbvz.onrender.com/api/v1/job/getMyJob",
+          "https://mernstack-1jqz.onrender.com/api/v1/job/getMyJob",
           { withCredentials: true }
         );
      
@@ -62,7 +62,7 @@ function MyJob() {
   const handleUpdateJob = async (jobId) => {
     const updatedJob = myJobs.find((job) => job._id === jobId);
     await axios
-      .put(`https://mernstack-vbvz.onrender.com/api/v1/job/update/${jobId}`, updatedJob, {
+      .put(`https://mernstack-1jqz.onrender.com/api/v1/job/update/${jobId}`, updatedJob, {
         withCredentials: true,
       })
       .then((response) => {
@@ -83,7 +83,7 @@ function MyJob() {
   //Function For Deleting Job
   const handleDeleteJob = async (jobId) => {
     await axios
-      .delete(`hhttps://mernstack-vbvz.onrender.com/api/v1/job/delete/${jobId}`, {
+      .delete(`https://mernstack-1jqz.onrender.com/api/v1/job/delete/${jobId}`, {
         withCredentials: true,
       })
       .then((response) => {
