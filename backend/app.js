@@ -8,7 +8,15 @@ import applicationRouter from"./routes/applicationRouter.js"
 import jobRouter from"./routes/jobRouter.js"
 import { dbConnection } from "./database/dbConnection.js";
 import { Handler } from "./middlewares/Error.js";
+import fs from 'fs';
+import path from 'path';
 
+const tempDir = path.join(new URL('.', import.meta.url).pathname, 'temp');
+
+// Check if the directory exists, if not, create it
+if (!fs.existsSync(tempDir)) {
+  fs.mkdirSync(tempDir);
+}
 
 const app = express()
 dotenv.config({path: "./config/.env"})
@@ -21,7 +29,7 @@ app.use(cors({
 app.use(cookieParser());
 app.use(fileUpload({
     useTempFiles:true,
-    tempFileDir:'/temp/'
+    tempFileDir: tempDir
     }))
 app.use(express.json());
 app.use(express.urlencoded(
@@ -32,7 +40,7 @@ app.use('/api/v1/user',userRouter)
 app.use('/api/v1/application',applicationRouter)
 app.use('/api/v1/job',jobRouter)
 
-app.use(Handler)
+// app.use(Handler)
 dbConnection()
 .then(
     ()=>{
