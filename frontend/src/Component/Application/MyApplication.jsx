@@ -21,7 +21,7 @@ const jobUser = useSelector(state=>state.auth.user)
       
       if (jobUser && jobUser.role === "Employer") {
         axios
-          .get("https://mernstack-h0mv.onrender.com/api/v1/application/employer/getall", {
+          .get("https://mernstack-vbvz.onrender.com/api/v1/application/employer/getall", {
             withCredentials: true,
           })
           .then((res) => {
@@ -30,7 +30,7 @@ const jobUser = useSelector(state=>state.auth.user)
           });
       } else if(jobUser && jobUser.role === "JobSeeker"){
         axios
-          .get("https://mernstack-h0mv.onrender.com/api/v1/application/jobseeker/getall", {
+          .get("https://mernstack-vbvz.onrender.com/api/v1/application/jobseeker/getall", {
             withCredentials: true,
           })
           .then((res) => {
@@ -61,7 +61,7 @@ const jobUser = useSelector(state=>state.auth.user)
   const deleteApplication = (id) => {
     try {
       axios
-        .delete(`https://mernstack-h0mv.onrender.com/api/v1/application/delete/${id}`, {
+        .delete(`https://mernstack-vbvz.onrender.com/api/v1/application/delete/${id}`, {
           withCredentials: true,
         })
         .then((res) => {

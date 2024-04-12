@@ -16,7 +16,7 @@ function JobDetail() {
     if(!Authorized){
       navigate("/login")
     }else{
-    axios.get(`https://mernstack-h0mv.onrender.com/api/v1/job/${id}`, {withCredentials:true})
+    axios.get(`https://mernstack-vbvz.onrender.com/api/v1/job/${id}`, {withCredentials:true})
     .then((res)=>{
       setJob(res.data.job)
     })

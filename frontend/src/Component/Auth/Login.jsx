@@ -26,7 +26,7 @@ const Login = () => {
     }
     try {
       const { data } = await axios.post(
-        "https://mernstack-h0mv.onrender.com/api/v1/user/login",
+        "https://mernstack-vbvz.onrender.com/api/v1/user/login",
         { email, password, role },
         {
           headers: {
@@ -42,7 +42,7 @@ const Login = () => {
       dispatch(setIsAuthorized(true));
     } catch (error) {
       dispatch(setIsAuthorized(false));
-      console.log(error)
+ 
       if (error.response && error.response.data && error.response.data.error) {
         toast.error(error.response.data.error);
       } else {
