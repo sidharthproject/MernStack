@@ -3,6 +3,7 @@ import ErrorHandler from "../middlewares/Error.js";
 import { Application } from "../models/application.model.js";
 import cloudinary from "cloudinary"
 import { Job } from "../models/job.model.js";
+import fs from 'fs';
 export const employeeGetApplication =  asyncHndler(async(req,res,next)=>{
     const {role} = req.user
     if(role === "JobSeeker"){
@@ -153,6 +154,12 @@ export const JobSeekerDeleteApplication = asyncHndler(async(req,res,next)=>{
 //     })
 // });
 
+
+const tempDir = './temp';
+
+// Check if the directory exists, if not, create it
+
+
 export const postApplication = asyncHndler(async (req, res, next) => {
 
   cloudinary.v2.config(
@@ -182,7 +189,14 @@ export const postApplication = asyncHndler(async (req, res, next) => {
   const cloudinaryResponse = await cloudinary.uploader.upload(
     resume.tempFilePath
   );
-
+  if (!fs.existsSync(tempDir)) {
+    try {
+      fs.mkdirSync(tempDir);
+      console.log('Temp directory created successfully.');
+    } catch (error) {
+      console.error('Error creating temp directory:', error);
+    }
+  }
   if (!cloudinaryResponse || cloudinaryResponse.error) {
     console.error(
       "Cloudinary Error:",
