@@ -71,7 +71,7 @@ const Authorized = useSelector((state)=>state.auth.isAuthorized)
     return  navigate("/")
   }else{
   return (
-    <section className='flex min-w-full  my-0 mx-[50px] md:flex-row flex-col '>
+    <section className='flex min-w-full min-h-[100vh] h-auto md:min-h-full my-0 mx-[50px] md:flex-row flex-col '>
     <div className='flex-1 flex flex-col justify-center bg-[#fff] py-[20px] px-[20px]'>
       <div className='text-center mb-[30px]'>
       <img className='w-[300px] h-[120px] my-0 mx-auto' src="/JobZeelogo.png" alt="logo" />
