@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import  jwt  from "jsonwebtoken";
-import bcrypt, {compare } from "bcrypt"
+import bcrypt from "bcrypt"
 import validator from "validator";
 
  const userSchema = new Schema({
@@ -46,9 +46,12 @@ import validator from "validator";
     if(!this.isModified("password")){
         return  next()
     }
-        this.password = await bcrypt.hash(this.password,10)
-      next()
-    
+    try {
+        this.password = await bcrypt.hash(this.password, 10);
+        next();
+    } catch (error) {
+        next(error);
+    }
  });
 
  //Cmparing password
@@ -65,7 +68,7 @@ import validator from "validator";
             process.env.REFRESH_TOKEN_SECRET,
             { expiresIn: process.env.REFRESH_TOKEN_EXPIRY }
         );
-        console.log("Generated Token:", token);
+       
         return token;
     } catch (error) {
         console.error("Error generating refresh token:", error);
