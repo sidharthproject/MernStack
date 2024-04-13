@@ -8,8 +8,7 @@ import validator from "validator";
         type: String,
         required: true,
         minLength:[3,"Name must contain at least 3 charecter !"],
-        maxlength:[30,"Name must contain at least 3 charexter !"],
-        unique: true,
+        maxlength:[30,"Name must contain at least 3 charexter !"],       
         lowercase: true,
         trim: true, 
         index: true

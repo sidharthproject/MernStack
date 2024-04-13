@@ -45,7 +45,7 @@ export const login = asyncHndler(async(req,res,next)=>{
     })
     if(!user){
         return next(
-            new ErrorHandler("User with this doesn't email exist", 400)
+            new ErrorHandler("User with this  email doesn't exist", 400)
           );
     }
 

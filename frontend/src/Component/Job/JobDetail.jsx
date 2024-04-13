@@ -60,7 +60,7 @@ function JobDetail() {
         <p className='font-bold text-[#2d5649]'>
           Location: <span className='text-[#18191c] font-[400]'>{job.location}</span>
         </p>
-        <p className='font-bold text-[#2d5649] w-[250px] md:w-full'>
+        <p className='font-bold text-[#2d5649] w-[320px] md:w-full'>
           Description: <span className='text-[#18191c] font-[400]'>{job.description}</span>
         </p>
         <p className='font-bold text-[#2d5649]'>
