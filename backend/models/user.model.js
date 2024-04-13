@@ -17,7 +17,7 @@ import validator from "validator";
         type: String,
         required: [true, "Please enter your Email!"],
         validate: [validator.isEmail, "Please provide a valid Email!"],
-        unique:true
+        
     },
     phone:{
         type:Number,
