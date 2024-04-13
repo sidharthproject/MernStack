@@ -16,6 +16,7 @@ export const register = asyncHndler(async(req,res,next)=>{
     );
  }
 const isEmail = await User.findOne({email})
+try{
 if(isEmail){
     return next(
         new ErrorHandler("Email already exist", 400)
@@ -30,6 +31,9 @@ const user = await User.create({
 });
 
    sendToken(user,200,res,"User Registered Successfully")
+} catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+}
 });
 
 export const login = asyncHndler(async(req,res,next)=>{

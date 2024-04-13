@@ -18,7 +18,7 @@ function Navbar() {
   const handleLogout = async()=>{
     try {
       const response = await axios.get("https://mernstack-1jqz.onrender.com/api/v1/user/logout",{withCredentials:true})
-      toast.success(data.message);
+      toast.success(response.data.message);
       dispatch(setIsAuthorized(false))
       navigate("/login")
     } catch (error) {
