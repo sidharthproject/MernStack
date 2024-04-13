@@ -40,7 +40,7 @@ import validator from "validator";
  })
 
  //Hasing the password
- userSchema.index({ name: 1, email: 1 }, { unique: true });
+
 
  userSchema.pre("save",async function(next){
     if(!this.isModified("password")){
