@@ -11,7 +11,7 @@ import validator from "validator";
         maxlength:[30,"Name must contain at least 3 charexter !"],       
         lowercase: true,
         trim: true, 
-        index: true
+     
     },
     email:{
         type: String,
@@ -41,6 +41,7 @@ import validator from "validator";
 
  //Hasing the password
  userSchema.index({ name: 1, email: 1 }, { unique: true });
+
  userSchema.pre("save",async function(next){
     if(!this.isModified("password")){
         return  next()
